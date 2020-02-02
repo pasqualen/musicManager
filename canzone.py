@@ -1,16 +1,25 @@
+import enum
+import json
+
+class FIELD(enum.Enum):
+    TITOLO = 1
+    ARTISTA = 2
+    GENERE = 3
+    AUTORE = 4
+    ALBUM = 5
+    TESTO = 6
+
 class Canzone:
-    __nome: str
 
-    def __init__(self):
-        self.titolo = ""
-        self.artista = ""
-        self.autore = ""
-        self.album = ""
-        self.annopubb = ""
-        self.genere = ""
-        self.casadisc = ""
-        self.testo = ""
-
+    def __init__(self, t="" , a="", au="", al="", anno="", g="", c="", testo=""):
+        self.__titolo = t
+        self.__artista = a
+        self.__autore = au
+        self.__album = al
+        self.__annopubb = anno
+        self.__genere = g
+        self.__casadisc = c
+        self.__testo = testo
     #SET
     def set_titolo(self, titolo):
         self.__titolo = titolo
@@ -63,7 +72,17 @@ class Canzone:
     def get_testo(self):
         return self.__testo
 
-
+    def to_json(self):
+        canzone = {};
+        canzone["titolo"] = self.__titolo;
+        canzone["artista"] = self.__artista;
+        canzone["annopubb"] = self.__annopubb;
+        canzone["genere"] = self.__genere;
+        canzone["album"] = self.__album;
+        canzone["casadisc"] = self.__casadisc;
+        canzone["autore"] = self.__autore;
+        canzone["testo"] = self.__testo;
+        return json.dumps(canzone)
 
     def __str__(self):
         return "%s; %s; %s; %s; %s; %s; %s; %s" %(self.__titolo, self.__artista, self.__annopubb, self.__genere, self.__album, self.__casadisc, self.__autore, self.__testo)
@@ -103,23 +122,3 @@ class Canzone:
         if self.__testo.lower < other.__testo.lower:
             return True
         return False
-
-    def __contains__(self, what):
-        if what.lower() in self.__titolo.lower():
-            return True
-
-    def __contains__(self, who):
-        if who.lower() in self.__artista.lower():
-             return True
-        # if what.lower() in self.__autore.lower():
-        #     return True
-        # if what.lower() in self.__album.lower():
-        #     return True
-        # if what.lower() in self.__annopubb.lower():
-        #     return True
-        # if what.lower() in self.__genere.lower():
-        #     return True
-        # if what.lower() in self.__casadisc.lower():
-        #     return True
-        # if what.lower() in self.__testo.lower():
-        #     return True

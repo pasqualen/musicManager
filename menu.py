@@ -1,6 +1,8 @@
 from canzone import Canzone
+from canzone import FIELD
 from libreria import Libreria
 
+COMMANDS =["a","c","m","t","s","q"]
 
 def stampa_menu():
     print("A - Aggiungi")
@@ -21,9 +23,8 @@ def stampa_sottomenu():
 
 
 def get_comand():
-    while True:
-        cmd = input(">>> ")
-        if cmd in "AaCcMmTtSsQq":
+        cmd = input(">>> ").lower()
+        if cmd in COMMANDS:
             return cmd
         else:
             print("Comando non riconosciuto. Riprova.")
@@ -36,13 +37,23 @@ def get_comand2():
         else:
             print("Comando non riconosciuto. Riprova.")
 
+
+def getAnno():
+    while True:
+        anno = input("Anno di pubblicazione: ");
+        if (anno.isdigit() and int(anno) > 1900 and int(anno) < 2020) :
+            return anno
+        else:
+            print("Anno non riconosciuto. Riprova.")
+
+
 def main_loop():
     libreria = Libreria("libreria.txt")
     while True:
         stampa_menu()
         cmd = get_comand()
         print("Hai scelto %s" %cmd)
-        if cmd == "Q" or cmd == "q":
+        if cmd == "q":
             esci = input("Sei sicuro di voler uscire? Premere 1 per uscire, 2 per tornare indietro: ")
             if esci == "1":
                 input
@@ -50,70 +61,42 @@ def main_loop():
                 return
             if esci == "2":
                 stampa_menu()
-        if cmd == "S" or cmd == "s":
+        if cmd == "s":
             libreria.save()
-        if cmd == "C" or cmd == "c":
+        if cmd == "c":
             c = Canzone()
             nome = input("Titolo: ")
             libreria.delete(nome)
-        if cmd == "A" or cmd == "a":
+        if cmd == "a":
             titolo = input("Titolo: ")
             artista = input("Artista: ")
             autore = input("Autore: ")
             album = input("Album: ")
-            annopubb = input("Anno di pubblicazione: ")
+            annopubb = getAnno()
             genere = input("Genere: ")
             casadisc = input("Casa Discografica: ")
             testo = input("Testo: ")
-            c = Canzone()
-            c.set_titolo(titolo)
-            c.set_artista(artista)
-            c.set_autore(autore)
-            c.set_album(album)
-            c.set_annopubb(annopubb)
-            c.set_genere(genere)
-            c.set_casadisc(casadisc)
-            c.set_testo(testo)
+            c = Canzone(titolo, artista, autore, album, annopubb, genere, casadisc, testo)
             libreria.add(c)
-        if cmd == "T" or cmd == "t":
+        if cmd == "t":
             stampa_sottomenu()
             cmd2 = get_comand2()
             print("Hai scelto %s" % cmd2)
-            if cmd2 in "123456":
-                if cmd2 == "1":
-                    titolo = input("Titolo: ")
-                    trovati = libreria.find(titolo)
-                    for c in trovati:
-                        print(c)
-                if cmd2 == "2":
-                    artista = input("Artista: ")
-                    trovati = libreria.find(artista)
-                    for c in trovati:
-                        print(c)
-                if cmd2 == "3":
-                    genere = input("Genere: ")
-                    trovati = libreria.find(genere)
-                    for c in trovati:
-                        print(c)
-                if cmd2 == "4":
-                    autore = input("Autore: ")
-                    trovati = libreria.find(autore)
-                    for c in trovati:
-                        print(c)
-                if cmd2 == "5":
-                    album = input("Album o inserire 'na' per cercare i singoli: ")
-                    trovati = libreria.find(album)
-                    for c in trovati:
-                        print(c)
-                if cmd2 == "6":
-                    testo = input("Testo: ")
-                    trovati = libreria.find(testo)
-                    for c in trovati:
-                        print(c)
-                return cmd2
+            campoDaCercare = "";
+            valoreDaCercare = "";
+
+            if cmd2.isdigit() and int(cmd2) >= 1 and int(cmd2) <= 6 :
+                campoDaCercare = FIELD(int(cmd2))
+                valoreDaCercare = input(campoDaCercare.name + " :");
+
+                trovati = libreria.find(campoDaCercare, valoreDaCercare)
+
+                for c in trovati:
+                    str(c)
+                    print(c)
             else:
                 print("Comando non riconosciuto. Riprova.")
-        if cmd == "M" or cmd == "m":
+        if cmd == "m":
             c = Canzone()
             titolo = input("Titolo: ")
             artista = input("Inserire nuovo artista: ")
