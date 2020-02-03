@@ -1,8 +1,8 @@
 from canzone import Canzone
-from canzone import FIELD
 from libreria import Libreria
 
 COMMANDS =["a","c","m","t","s","q"]
+COMMANDS2 = ["1","2","3","4","5","6"]
 
 def stampa_menu():
     print("A - Aggiungi")
@@ -32,7 +32,7 @@ def get_comand():
 def get_comand2():
     while True:
         cmd2 = input(">>> ")
-        if cmd2 in "123456":
+        if cmd2 in COMMANDS2:
             return cmd2
         else:
             print("Comando non riconosciuto. Riprova.")
@@ -41,7 +41,7 @@ def get_comand2():
 def getAnno():
     while True:
         anno = input("Anno di pubblicazione: ");
-        if (anno.isdigit() and int(anno) > 1900 and int(anno) < 2020) :
+        if (anno.isdigit() and int(anno) > 1900 and int(anno) <= 2020) :
             return anno
         else:
             print("Anno non riconosciuto. Riprova.")
@@ -82,20 +82,29 @@ def main_loop():
             stampa_sottomenu()
             cmd2 = get_comand2()
             print("Hai scelto %s" % cmd2)
-            campoDaCercare = "";
-            valoreDaCercare = "";
-
-            if cmd2.isdigit() and int(cmd2) >= 1 and int(cmd2) <= 6 :
-                campoDaCercare = FIELD(int(cmd2))
-                valoreDaCercare = input(campoDaCercare.name + " :");
-
-                trovati = libreria.find(campoDaCercare, valoreDaCercare)
-
+            if cmd2 == "1":
+                titolo = input("Titolo: ")
+                trovati = libreria.findTitolo(titolo)
                 for c in trovati:
                     str(c)
                     print(c)
             else:
                 print("Comando non riconosciuto. Riprova.")
+
+
+
+
+
+
+            # campoDaCercare = "";
+            # valoreDaCercare = "";
+            #
+            # if cmd2.isdigit() and int(cmd2) >= 1 and int(cmd2) <= 6 :
+            #     campoDaCercare = FIELD(int(cmd2))
+            #     valoreDaCercare = input(campoDaCercare.name + " :");
+            #
+            #     trovati = libreria.find(campoDaCercare, valoreDaCercare)
+
         if cmd == "m":
             c = Canzone()
             titolo = input("Titolo: ")

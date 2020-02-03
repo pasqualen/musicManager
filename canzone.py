@@ -1,13 +1,4 @@
-import enum
 import json
-
-class FIELD(enum.Enum):
-    TITOLO = 1
-    ARTISTA = 2
-    GENERE = 3
-    AUTORE = 4
-    ALBUM = 5
-    TESTO = 6
 
 class Canzone:
 
@@ -20,6 +11,7 @@ class Canzone:
         self.__genere = g
         self.__casadisc = c
         self.__testo = testo
+
     #SET
     def set_titolo(self, titolo):
         self.__titolo = titolo
@@ -73,15 +65,15 @@ class Canzone:
         return self.__testo
 
     def to_json(self):
-        canzone = {};
-        canzone["titolo"] = self.__titolo;
-        canzone["artista"] = self.__artista;
-        canzone["annopubb"] = self.__annopubb;
-        canzone["genere"] = self.__genere;
-        canzone["album"] = self.__album;
-        canzone["casadisc"] = self.__casadisc;
-        canzone["autore"] = self.__autore;
-        canzone["testo"] = self.__testo;
+        canzone = {}
+        canzone["titolo"] = self.__titolo
+        canzone["artista"] = self.__artista
+        canzone["annopubb"] = self.__annopubb
+        canzone["genere"] = self.__genere
+        canzone["album"] = self.__album
+        canzone["casadisc"] = self.__casadisc
+        canzone["autore"] = self.__autore
+        canzone["testo"] = self.__testo
         return json.dumps(canzone)
 
     def __str__(self):

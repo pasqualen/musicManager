@@ -1,6 +1,6 @@
 import json
 from canzone import Canzone
-from canzone import FIELD
+
 class Libreria:
     def __init__(self, filename):
         self.__filename = filename
@@ -41,6 +41,8 @@ class Libreria:
             c.set_testo(jsonMap["testo"])
             self.__lista.append(c)
         f.close()
+
+
     def add(self, c):
         self.__lista.append(c)
 
@@ -51,21 +53,59 @@ class Libreria:
             f.write("%s\n" %c.to_json())
         f.close()
 
-    def find(self, field, valoreDaCercare):
-        results = []
-        for c in self.__lista:
-            if field == FIELD.TITOLO :
-                if valoreDaCercare in c.get_titolo() :
-                    results.append(c)
-            elif field == FIELD.ALBUM :
-                if valoreDaCercare in c.get__album() :
-                    results.append(c)
-        return results
-
     def findTitolo(self, what):
         ret = []
         for c in self.__lista:
             if c.get_titolo()in what:
+               ret.append(c)
+        return ret
+
+    def findArtista(self, what):
+        ret = []
+        for c in self.__lista:
+            if c.get_artista()in what:
+               ret.append(c)
+        return ret
+
+    def findAutore(self, what):
+        ret = []
+        for c in self.__lista:
+            if c.get_autore()in what:
+               ret.append(c)
+        return ret
+
+    def findAlbum(self, what):
+        ret = []
+        for c in self.__lista:
+            if c.get_album()in what:
+               ret.append(c)
+        return ret
+
+    def findAnnopubb(self, what):
+        ret = []
+        for c in self.__lista:
+            if c.get_annopubb()in what:
+               ret.append(c)
+        return ret
+
+    def findGenere(self, what):
+        ret = []
+        for c in self.__lista:
+            if c.get_genere()in what:
+               ret.append(c)
+        return ret
+
+    def findCasadisc(self, what):
+        ret = []
+        for c in self.__lista:
+            if c.get_casadisc()in what:
+               ret.append(c)
+        return ret
+
+    def findTesto(self, what):
+        ret = []
+        for c in self.__lista:
+            if c.get_testo()in what:
                ret.append(c)
         return ret
 
