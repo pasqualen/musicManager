@@ -1,5 +1,5 @@
 import json
-from canzone import Canzone
+from brano import Brano
 
 class Libreria:
     def __init__(self, filename):
@@ -11,32 +11,16 @@ class Libreria:
             f = open(self.__filename, "w")
             f.close()
             f = open(self.__filename, "r")
-
-        # for linea in f:
-        #     linea = linea.strip('\n')
-        #     fields = linea.split(";")
-        #     c = Canzone()
-        #     c.set_artista(fields[1])
-        #     c.set_titolo(fields[0])
-        #     c.set_album(fields[2])
-        #     c.set_annopubb(fields[3])
-        #     c.set_genere(fields[4])
-        #     c.set_autore(fields[5])
-        #     c.set_casadisc(fields[6])
-        #     c.set_testo(fields[7])
-        #     self.__lista.append(c)
-        # f.close()
-
         for linea in f:
             linea = linea.strip('\n')
             jsonMap = json.loads(linea)
-            c = Canzone()
+            c = Brano()
             c.set_artista(jsonMap["artista"])
             c.set_titolo(jsonMap["titolo"])
             c.set_album(jsonMap["album"])
-            c.set_annopubb(jsonMap["annopub"])
+            c.set_annopubb(jsonMap["annopubb"])
             c.set_genere(jsonMap["genere"])
-            c.set_autore(jsonMap["genere"])
+            c.set_autori(jsonMap["autori"])
             c.set_casadisc(jsonMap["casadisc"])
             c.set_testo(jsonMap["testo"])
             self.__lista.append(c)
@@ -45,9 +29,21 @@ class Libreria:
 
     def add(self, c):
         self.__lista.append(c)
+        self.__save()
+
+    def update(self, oldBrano, newBrano):
+        self.__lista[self.__lista.index(oldBrano)] = newBrano
+        self.__save()
+
+    def delete(self, brano):
+        self.__lista.remove(brano)
+        self.__save()
+
+    def get_lista(self):
+        return self.__lista
 
 
-    def save(self):
+    def __save(self):
         f = open(self.__filename, "w")
         for c in self.__lista:
             f.write("%s\n" %c.to_json())
@@ -56,73 +52,57 @@ class Libreria:
     def findTitolo(self, what):
         ret = []
         for c in self.__lista:
-            if c.get_titolo()in what:
+            if what in c.get_titolo():
                ret.append(c)
         return ret
 
     def findArtista(self, what):
         ret = []
         for c in self.__lista:
-            if c.get_artista()in what:
+            if what in c.get_artista():
                ret.append(c)
         return ret
 
     def findAutore(self, what):
         ret = []
         for c in self.__lista:
-            if c.get_autore()in what:
+            if what in c.get_autori():
                ret.append(c)
         return ret
 
     def findAlbum(self, what):
         ret = []
         for c in self.__lista:
-            if c.get_album()in what:
+            if what in c.get_album():
                ret.append(c)
         return ret
 
     def findAnnopubb(self, what):
         ret = []
         for c in self.__lista:
-            if c.get_annopubb()in what:
+            if what in c.get_annopubb():
                ret.append(c)
         return ret
 
     def findGenere(self, what):
         ret = []
         for c in self.__lista:
-            if c.get_genere()in what:
+            if what in c.get_genere():
                ret.append(c)
         return ret
 
     def findCasadisc(self, what):
         ret = []
         for c in self.__lista:
-            if c.get_casadisc()in what:
+            if what in c.get_casadisc():
                ret.append(c)
         return ret
 
     def findTesto(self, what):
         ret = []
         for c in self.__lista:
-            if c.get_testo()in what:
+            if what in c.get_testo():
                ret.append(c)
         return ret
 
-    def modify(self, titolo, artista, autore, album, genere, annopubb, casadisc, testo):
-        for i in range(len(self.__lista)):
-            if self.__lista[i].get_titolo().lower() == titolo.lower():
-                self.__lista[i].set_artista(artista)
-                self.__lista[i].set_autore(autore)
-                self.__lista[i].set_album(album)
-                self.__lista[i].set_genere(genere)
-                self.__lista[i].set_annopubb(annopubb)
-                self.__lista[i].set_casadisc(casadisc)
-                self.__lista[i].set_testo(testo)
-                return
 
-    def delete(self, what):
-        for i in range(len(self.__lista)):
-            if self.__lista[i].get_titolo().lower() == what.lower():
-                self.__lista.pop(i)
-                return

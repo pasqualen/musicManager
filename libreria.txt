@@ -1,0 +1,4 @@
+{"titolo": "OCCHIALI SCURI", "artista": "COEZ", "annopubb": "2017", "genere": "RAP", "album": "FACCIO UN CASINO", "casadisc": "UNDAMENTO", "autori": ["COEZ"], "testo": "NON TI SCORDARE MAI GLI OCCHIALI SCURI SE, EHI YE"}
+{"titolo": "ALBACHIARA", "artista": "VASCO ROSSI", "annopubb": "1979", "genere": "ROCK", "album": "NON SIAMO MICA GLI AMERICANI!", "casadisc": "LOTUS", "autori": ["VASCO ROSSI"], "testo": "RESPIRI PIANO PER NON FAR RUMORE, TI ADDORMENTI DI SERA E TI RISVEGLI CON IL SOLE"}
+{"titolo": "ANOTHER ONE BITES THE DUST", "artista": "QUEEN", "annopubb": "1980", "genere": "FUNK ROCK", "album": "THE GAME", "casadisc": "EMI", "autori": ["QUEEN"], "testo": "ANOTHER ONE BITES THE DUST, ANOTHER ONE BITES THE DUST, AND ANOTHER ONE GONE, AND ANOTHER ONE GONE"}
+{"titolo": "LA", "artista": "", "annopubb": "2019", "genere": "", "album": "", "casadisc": "", "autori": [""], "testo": ""}
